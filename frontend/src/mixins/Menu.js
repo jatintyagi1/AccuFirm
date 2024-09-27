@@ -1,7 +1,7 @@
 
 
 // Some details about the site
-exports.siteName = `Cedimed App`;
+exports.siteName = `AccuFirm`;
 
 
 exports.menu = [
