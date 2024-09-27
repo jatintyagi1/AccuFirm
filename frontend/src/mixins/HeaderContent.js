@@ -1,5 +1,5 @@
 import React from "react";
-import { Layout, Avatar, Menu, Dropdown, Button } from "antd";
+import { Layout, Avatar, Menu, Dropdown } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 const { Header } = Layout;
 
