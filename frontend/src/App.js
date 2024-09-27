@@ -2,8 +2,9 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import './App.css';
 
-import Dashboard from './views/Dashboard';
+import Dashboard from './views/DashboardPage';
 import NotFound from './views/NotFound';
+import LoginPage from "./views/LoginPage";
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Dashboard />} />
         <Route path="*" element={<NotFound />} />
+        <Route path="/login" element={<LoginPage />} />
       </Routes>
     </BrowserRouter>
   );
