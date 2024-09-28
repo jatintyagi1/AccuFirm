@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React from "react";
 import {
   Form,
   Select,
@@ -17,7 +17,6 @@ const { Option } = Select;
 const { Title } = Typography;
 
 function Dashboard() {
-  let refFromUseRef = useRef(null);
   return (
     <>
       <section style={{ textAlign: "center", marginTop: 48, marginBottom: 40 }}>

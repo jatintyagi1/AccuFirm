@@ -1,11 +1,12 @@
-import React from 'react';
-import { Navigate } from 'react-router-dom';
-import { ACCESS_TOKEN_NAME } from '../constants/apiConstants';
+import React, { useContext } from "react";
+import { Navigate } from "react-router-dom";
+import UserContext from "../Context/UserContext"; // Adjust the import path as necessary
 
-function PrivateRoute({ children }) {
-  const isAuthenticated = localStorage.getItem(ACCESS_TOKEN_NAME);
+const PrivateRoute = ({ children }) => {
+  const { userData } = useContext(UserContext);
 
-  return isAuthenticated ? children : <Navigate to="/login" />;
-}
+  // Check if user is authenticated
+  return userData.token ? children : <Navigate to="/login" />;
+};
 
 export default PrivateRoute;
