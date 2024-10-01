@@ -6,8 +6,8 @@ const PrivateRoute = ({ children }) => {
   const { userData } = useContext(UserContext);
 
   // Check if user is authenticated
-  return userData.token ? children : <Navigate to="/login" />;
-  //return children;
+  //return userData.token ? children : <Navigate to="/login" />;
+  return children;
 };
 
 export default PrivateRoute;

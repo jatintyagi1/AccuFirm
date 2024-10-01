@@ -5,6 +5,7 @@ import UserContext from './Context/UserContext';
 import PrivateRoute from './utils/PrivateRoute';
 
 import DashboardPage from './Pages/DashboardPage';
+import CustomerPage from './Pages/CustomerPage';
 import LoginPage from './Pages/LoginPage';
 import NotFound from './Pages/NotFound';
 import DaysPage from "./Pages/DaysPage";
@@ -24,6 +25,10 @@ function App() {
           <Route
             path="/"
             element={<PrivateRoute><DashboardPage /></PrivateRoute>}
+          />
+          <Route
+            path="/customer"
+            element={<PrivateRoute><CustomerPage /></PrivateRoute>}
           />
           <Route
             path="/days"
