@@ -1,2 +1,2 @@
-export const API_BASE_URL = "http://127.0.0.1:9999/api/";
+export const API_BASE_URL = process.env.API_BASE_URL;
 export const ACCESS_TOKEN_NAME = "auth-token";

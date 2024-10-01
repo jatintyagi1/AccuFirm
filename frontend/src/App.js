@@ -7,6 +7,8 @@ import PrivateRoute from './utils/PrivateRoute';
 import DashboardPage from './Pages/DashboardPage';
 import LoginPage from './Pages/LoginPage';
 import NotFound from './Pages/NotFound';
+import DaysPage from "./Pages/DaysPage";
+import AntdForm from "./Pages/antdForm";
 
 function App() {
   const [userData, setUserData] = useState({
@@ -18,12 +20,28 @@ function App() {
     <BrowserRouter>
       <UserContext.Provider value={{ userData, setUserData }}>
         <Routes>
-          <Route path="/" element={<PrivateRoute><DashboardPage /></PrivateRoute>} />
+          {/* Use PrivateRoute for authenticated routes */}
+          <Route
+            path="/"
+            element={<PrivateRoute><DashboardPage /></PrivateRoute>}
+          />
+          <Route
+            path="/days"
+            element={<PrivateRoute><DaysPage /></PrivateRoute>}
+          />
+          <Route
+            path="/antd"
+            element={<PrivateRoute><AntdForm /></PrivateRoute>}
+          />
+
+          {/* Public routes */}
           <Route path="/login" element={<LoginPage />} />
-          {/* <Route path="/register" element={<Register />} /> */}
+
+          {/* Fallback to NotFound for unmatched routes */}
           <Route path="*" element={<NotFound />} />
         </Routes>
       </UserContext.Provider>
+
     </BrowserRouter>
   );
 }

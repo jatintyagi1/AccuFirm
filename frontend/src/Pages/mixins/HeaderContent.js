@@ -24,7 +24,7 @@ export default function HeaderContent() {
 
   const menu = (
     <Menu>
-      <Menu.Item onClick={onLogout}>Logout</Menu.Item>
+      <Menu.Item onClick={() => onLogout()}>Logout</Menu.Item>
       {/* Replace or add more menu items here */}
       <Menu.Item onClick={() => navigate("/profile")}>Profile</Menu.Item>
       <Menu.Item onClick={() => navigate("/settings")}>Settings</Menu.Item>
