@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from "react";
 import {
   Table,
-  Layout,
   Modal,
+  Dropdown,
   Tag,
   Button,
   Statistic,
+  Descriptions,
+  Typography,
   Row,
   Col,
-  Typography,
 } from "antd";
+import FormPatient from "./FormPatient";
+import { UserOutlined } from "@ant-design/icons";
 import { listSync } from "../axiosRequest";
 
 const { Title } = Typography;
@@ -27,7 +30,6 @@ export default function DataTable({ target, columns }) {
 
   const fetchData = (state) => {
     const { pagination } = state;
-
     setState({ loading: true });
     const ajaxCall = listSync(target, { page: pagination.defaultCurrent });
     ajaxCall.then(function (response) {
@@ -78,33 +80,34 @@ export default function DataTable({ target, columns }) {
 
   return (
     <>
-      <Layout.Header style={{ padding: "0 20px" }}>
-        <Row justify="space-between" align="middle">
-          <Col>
-            <Title level={2}>Title</Title>
-          </Col>
-          <Col>
-            <Tag color="blue">Running</Tag>
-          </Col>
-          <Col>
-            <Button key="1" type="primary" onClick={showModal}>
-              Add new Patient
-            </Button>
-          </Col>
+      <div style={{ padding: "20px 0px" }}>
+        <Title level={2}>Title</Title>
+        <Tag color="blue">Running</Tag>
+        <p>This is a subtitle</p>
+        <Row>
+          <Statistic title="Status" value="Pending" />
+          <Statistic
+            title="Price"
+            prefix="$"
+            value={568.08}
+            style={{ margin: "0 32px" }}
+          />
+          <Statistic title="Balance" prefix="$" value={3345.08} />
         </Row>
-      </Layout.Header>
-
+        <Button key="2">Refresh</Button>
+        <Button key="1" type="primary" onClick={showModal}>
+          Add new Customer
+        </Button>
+      </div>
       <Modal
-        title="Basic Modal"
+        title="Add new Customer"
         visible={isModalVisible}
         onOk={handleOk}
         onCancel={handleCancel}
+        footer={null}
       >
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
+        <FormPatient />
       </Modal>
-
       <Table
         columns={columns}
         rowKey={(record) => record._id}
