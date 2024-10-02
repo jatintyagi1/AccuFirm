@@ -1,59 +1,56 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import DashboardLayout from "./Layout/DashboardLayout";
 import { Layout, Breadcrumb } from "antd";
-import { DatePicker, TimePicker, Calendar } from "../antdComponents";
-import dayjs from "dayjs";  // Updated import for dayjs
+import { DatePicker, TimePicker, Calendar } from "../antdComponents"; // Assuming you have custom date/time components
+import DataTable from "../components/DataTable"; // Your data table component
+import format from "dayjs";
 
 const { Content } = Layout;
 const { MonthPicker, RangePicker, WeekPicker } = DatePicker;
 
-const DaysPage = () => {
-  const onChange = (date, dateString) => {
-    console.log(date, dateString);
-  };
+function CustomerPage() {
+  // State for managing date selections or any other data
+  const [selectedDate, setSelectedDate] = useState(null);
 
-  const onPanelChange = (value, mode) => {
-    console.log(value, mode);
-  };
+  // Columns for your DataTable, adjust according to your requirements
+  const columns = [
+    {
+      title: "Name",
+      dataIndex: "name",
+      key: "name",
+    },
+    {
+      title: "Email",
+      dataIndex: "email",
+      key: "email",
+    },
+    {
+      title: "Status",
+      dataIndex: "status",
+      key: "status",
+    },
+    // Add more columns as needed
+  ];
 
   return (
-    <DashboardLayout
-      contentLayout={
-        <Content style={{ margin: "0 16px" }}>
-          <Breadcrumb style={{ margin: "16px 0" }}>
-            <Breadcrumb.Item>User</Breadcrumb.Item>
-            <Breadcrumb.Item>Bill</Breadcrumb.Item>
-          </Breadcrumb>
-          <div
-            className="site-layout-background"
-            style={{ padding: 24, minHeight: 360 }}
-          >
-            <div>
-              <DatePicker onChange={onChange} />
-              <br />
-              <MonthPicker onChange={onChange} placeholder="Select month" />
-              <br />
-              <RangePicker onChange={onChange} />
-              <br />
-              <WeekPicker onChange={onChange} placeholder="Select week" />
-            </div>
-            <Calendar onPanelChange={onPanelChange} />
-            <div>
-              <TimePicker
-                defaultValue={dayjs("12:08:23", "HH:mm:ss")}
-                size="large"
-              />
-              <TimePicker defaultValue={dayjs("12:08:23", "HH:mm:ss")} />
-              <TimePicker
-                defaultValue={dayjs("12:08:23", "HH:mm:ss")}
-                size="small"
-              />
-            </div>
-          </div>
-        </Content>
-      }
-    />
-  );
-};
+    <DashboardLayout>
+      <Content style={{ padding: "20px" }}>
+        <Breadcrumb style={{ margin: "16px 0" }}>
+          <Breadcrumb.Item>Home</Breadcrumb.Item>
+          <Breadcrumb.Item>Customers</Breadcrumb.Item>
+        </Breadcrumb>
 
-export default DaysPage;
+        <div style={{ marginBottom: "20px" }}>
+          <h2>Select Date</h2>
+          <DatePicker onChange={(date) => setSelectedDate(date)} />
+          {/* You can also add MonthPicker, RangePicker, or WeekPicker as needed */}
+        </div>
+
+        <DataTable target="customers" columns={columns} />
+        {/* Pass the appropriate target prop for your API */}
+      </Content>
+    </DashboardLayout>
+  );
+}
+
+export default CustomerPage;

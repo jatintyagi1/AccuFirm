@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import {
   Form,
   Select,
@@ -11,9 +11,7 @@ import {
   Space,
   Divider,
 } from "antd";
-import { DatePicker, TimePicker, Calendar } from "../antdComponents/index";
-import format from "dayjs";
-const { MonthPicker, RangePicker, WeekPicker } = DatePicker;
+import { DatePicker } from "../antdComponents/index"; // Assuming you have DatePicker in your custom components
 const { Option } = Select;
 const { Title } = Typography;
 
@@ -28,45 +26,41 @@ function AntdForm() {
             src="https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg"
             alt="Ant Design"
           />
-          <Title
-            level={2}
-            style={{ marginBottom: 0 }}
-            data-testid="this idurar"
-          >
+          <Title level={2} style={{ marginBottom: 0 }}>
             Ant Design{" "}
           </Title>
         </Space>
       </section>
       <Divider style={{ marginBottom: 60 }}>Form</Divider>
       <Form labelCol={{ span: 8 }} wrapperCol={{ span: 8 }}>
-        <Form.Item label="数字输入框">
+        <Form.Item label="Number Input">
           <InputNumber min={1} max={10} defaultValue={3} />
-          <span className="ant-form-text"> 台机器</span>
-          <a href="https://ant.design">链接文字</a>
+          <span className="ant-form-text"> machines</span>
+          <a href="https://ant.design">Link text</a>
         </Form.Item>
-        <Form.Item label="开关">
+        <Form.Item label="Switch">
           <Switch defaultChecked />
         </Form.Item>
-        <Form.Item label="滑动输入条">
+        <Form.Item label="Slider">
           <Slider defaultValue={70} />
         </Form.Item>
-        <Form.Item label="选择器">
+        <Form.Item label="Select">
           <Select defaultValue="lucy" style={{ width: 192 }}>
-            <Option value="jack">jack</Option>
-            <Option value="lucy">lucy</Option>
+            <Option value="jack">Jack</Option>
+            <Option value="lucy">Lucy</Option>
             <Option value="disabled" disabled>
-              disabled
+              Disabled
             </Option>
-            <Option value="yiminghe">yiminghe</Option>
+            <Option value="yiminghe">Yiminghe</Option>
           </Select>
         </Form.Item>
-        <Form.Item label="日期选择框">
+        <Form.Item label="Date Picker">
           <DatePicker />
         </Form.Item>
-        <Form.Item label="日期范围选择框">
+        <Form.Item label="Date Range Picker">
           <DatePicker.RangePicker />
         </Form.Item>
-        <Form.Item label="评分">
+        <Form.Item label="Rating">
           <Rate defaultValue={5} />
         </Form.Item>
         <Form.Item wrapperCol={{ span: 8, offset: 8 }}>
