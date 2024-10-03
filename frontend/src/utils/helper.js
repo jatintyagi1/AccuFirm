@@ -1,4 +1,8 @@
-import { parse } from "querystring";
-/* eslint no-useless-escape:0 import/prefer-default-export:0 */
+import { parse } from 'querystring';
 
-export const getPageQuery = () => parse(window.location.href.split("?")[1]);
+/* A function that parses the query parameters from the URL */
+
+export const getPageQuery = () => {
+  const queryString = window.location.search; // More reliable way to access the query string
+  return parse(queryString.slice(1)); // Remove the '?' and parse
+};

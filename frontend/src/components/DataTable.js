@@ -1,18 +1,6 @@
 import React, { useState, useEffect } from "react";
-import {
-  Table,
-  Modal,
-  Dropdown,
-  Tag,
-  Button,
-  Statistic,
-  Descriptions,
-  Typography,
-  Row,
-  Col,
-} from "antd";
+import { Table, Modal, Button, Statistic, Row, Tag, Typography } from "antd";
 import FormPatient from "./FormPatient";
-import { UserOutlined } from "@ant-design/icons";
 import { listSync } from "../axiosRequest";
 
 const { Title } = Typography;
@@ -21,45 +9,62 @@ export default function DataTable({ target, columns }) {
   const [state, setState] = useState({
     data: [],
     pagination: {
-      defaultCurrent: 1,
-      pageSize: 10,
-      total: 1,
+      defaultCurrent: 1, // Ensure default page is always 1
+      pageSize: 10,      // Default page size
+      total: 1,          // Total count
     },
     loading: false,
   });
 
+  // Function to fetch data
   const fetchData = (state) => {
-    const { pagination } = state;
-    setState({ loading: true });
-    const ajaxCall = listSync(target, { page: pagination.defaultCurrent });
-    ajaxCall.then(function (response) {
-      if (response === undefined || response.success === false) {
+    const pagination = state.pagination || {
+      defaultCurrent: 1,
+      pageSize: 10,
+      total: 1,
+    }; // Ensure pagination object is initialized
+
+    setState((prevState) => ({ ...prevState, loading: true }));
+
+    // API call to fetch data
+    listSync(target, { page: pagination.defaultCurrent })
+      .then((response) => {
+        if (!response || response.success === false) {
+          setState({
+            loading: false,
+            data: [],
+            pagination: { ...state.pagination },
+          });
+          return;
+        }
+
+        const responsePagination = response.pagination || {
+          page: 1,
+          count: 0,
+        };
+
         setState({
           loading: false,
-          data: [],
-          pagination: { ...state.pagination },
+          data: response.result || [],
+          pagination: {
+            defaultCurrent: responsePagination.page || 1,
+            pageSize: response.result ? response.result.length : 10,
+            total: responsePagination.count || 0,
+          },
         });
-        return;
-      }
-
-      setState({
-        loading: false,
-        data: response.result,
-        pagination: {
-          defaultCurrent: response.pagination.page,
-          pageSize: response.result.length,
-          total: response.pagination.count,
-        },
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+        setState({ loading: false });
       });
-    });
   };
 
   useEffect(() => {
-    fetchData(state);
+    fetchData(state); // Ensure state is passed in initial fetch
   }, []);
 
   const handleTableChange = (pagination) => {
-    fetchData({ pagination });
+    fetchData({ pagination: { ...pagination } });
   };
 
   const { data, pagination, loading } = state;
@@ -80,25 +85,31 @@ export default function DataTable({ target, columns }) {
 
   return (
     <>
-      <div style={{ padding: "20px 0px" }}>
-        <Title level={2}>Title</Title>
-        <Tag color="blue">Running</Tag>
-        <p>This is a subtitle</p>
-        <Row>
-          <Statistic title="Status" value="Pending" />
-          <Statistic
-            title="Price"
-            prefix="$"
-            value={568.08}
-            style={{ margin: "0 32px" }}
-          />
-          <Statistic title="Balance" prefix="$" value={3345.08} />
-        </Row>
-        <Button key="2">Refresh</Button>
+      <Title level={3} style={{ padding: "20px 0px" }}>
+        Title
+      </Title>
+      <Tag color="blue">Running</Tag>
+      <p>This is a subtitle</p>
+      <Row>
+        <Button key="2" onClick={() => fetchData(state)}>
+          Refresh
+        </Button>
         <Button key="1" type="primary" onClick={showModal}>
           Add new Customer
         </Button>
-      </div>
+      </Row>
+      <Row style={{ paddingTop: "20px" }}>
+        <Statistic title="Status" value="Pending" />
+        <Statistic
+          title="Price"
+          prefix="$"
+          value={568.08}
+          style={{
+            margin: "0 32px",
+          }}
+        />
+        <Statistic title="Balance" prefix="$" value={3345.08} />
+      </Row>
       <Modal
         title="Add new Customer"
         visible={isModalVisible}
