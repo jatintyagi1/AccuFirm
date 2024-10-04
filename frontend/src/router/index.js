@@ -22,7 +22,7 @@ function Router() {
             <Route path="/antd" element={<PrivateRoute component={AntdForm} />} />
             <Route path="/logout" element={<PrivateRoute component={Logout} />} />
             <Route path="/login" element={<PublicRoute component={Login} />} />
-            <Route path="*" element={<Navigate to="/notfound" />} />
+            <Route path="*" element={<NotFound />} />
         </Routes>
     );
 }
