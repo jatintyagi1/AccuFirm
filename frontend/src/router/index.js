@@ -3,7 +3,6 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import PrivateRoute from "./PrivateRoute";
 import PublicRoute from "./PublicRoute";
 
-import NotFound from "../pages/NotFound";
 import Dashboard from "../pages/Dashboard";
 import Days from "../pages/Days";
 import Customer from "../pages/Customer";
@@ -22,7 +21,6 @@ function Router() {
             <Route path="/antd" element={<PrivateRoute component={AntdForm} />} />
             <Route path="/logout" element={<PrivateRoute component={Logout} />} />
             <Route path="/login" element={<PublicRoute component={Login} />} />
-            <Route path="*" element={<NotFound />} />
         </Routes>
     );
 }
