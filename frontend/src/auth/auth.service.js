@@ -1,29 +1,40 @@
-import { ACCESS_TOKEN_NAME, API_BASE_URL } from "../config/serverApiConfig";
-import Axios from "axios";
+import { API_BASE_URL, ACCESS_TOKEN_NAME } from "../config/serverApiConfig";
+import Cookies from "js-cookie";
+import axios from "axios";
+import errorHandler from "../request/errorhandler";
+import successHandler from "../request/successHandler";
+import storePersist from "../redux/storePersist";
 
-// Logout function
-export function logout(setUserData) {
-  localStorage.removeItem(ACCESS_TOKEN_NAME);
-  setUserData({
-    token: undefined,
-    user: undefined,
-  });
-}
+// Token management
+export const token = {
+  get: () => Cookies.get(ACCESS_TOKEN_NAME),
+
+  set: (newToken) => {
+    if (newToken) {
+      Cookies.set(ACCESS_TOKEN_NAME, newToken);
+    }
+  },
+
+  remove: () => Cookies.remove(ACCESS_TOKEN_NAME),
+};
 
 // Login function
-export const login = async (loginUser, setUserData, setError, navigate) => {
+export const login = async (loginUserData) => {
   try {
-    const loginRes = await Axios.post(`${API_BASE_URL}login`, loginUser);
-    setUserData({
-      token: loginRes.data.token,
-      user: loginRes.data.user,
-    });
-    localStorage.setItem(ACCESS_TOKEN_NAME, loginRes.data.token);
-    navigate('/');  
-  } catch (err) {
-    console.log(err.response.data);
-    if (err.response && err.response.data.error) {
-      setError(err.response.data.error);
+    const response = await axios.post(`${API_BASE_URL}/login`, loginUserData);
+    
+    if (response?.data?.result?.token) {
+      token.set(response.data.result.token);
     }
+
+    return successHandler(response);
+  } catch (error) {
+    return errorHandler(error);
   }
+};
+
+// Logout function
+export const logout = () => {
+  token.remove();
+  storePersist.clear();
 };
