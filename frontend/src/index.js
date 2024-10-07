@@ -1,7 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import App from "./App";
+import App from "./app/index";
+import './app/style.less';
 import reportWebVitals from "./reportWebVitals";
 import *  as serviceWorker from './ServiceWorker';
 
