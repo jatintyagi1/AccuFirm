@@ -1,63 +1,105 @@
 import * as actionTypes from "./types";
 
 const INITIAL_STATE = {
-  list: [],
-  loading: false,
-  pagination: {
-    current: 1,
-    defaultCurrent: 1,
-    pageSize: 10,
-    total: 1,
-  },
   current: {
-    item: null,
-    loading: false,
+    result: null,
   },
-  update: null,
-  read: null,
-  delete: null,
-  search: null,
+  list: {
+    result: {
+      items: [],
+      pagination: {
+        current: 1,
+        defaultCurrent: 1,
+        pageSize: 10,
+        total: 1,
+      },
+    },
+    isLoading: false,
+    isSuccess: false,
+  },
+  create: {
+    result: null,
+    current: null,
+    isLoading: false,
+    isSuccess: false,
+  },
+  update: {
+    result: null,
+    current: null,
+    isLoading: false,
+    isSuccess: false,
+  },
+  delete: {
+    result: null,
+    current: null,
+    isLoading: false,
+    isSuccess: false,
+  },
+  read: {
+    result: null,
+    current: null,
+    isLoading: false,
+    isSuccess: false,
+  },
+  search: {
+    result: [],
+    current: null,
+    isLoading: false,
+    isSuccess: false,
+  },
 };
 
 const crudReducer = (state = INITIAL_STATE, action) => {
+  const { payload, keyState } = action;
   switch (action.type) {
-    case actionTypes.FAILED_REQUEST:
+    case actionTypes.RESET_STATE:
+      return INITIAL_STATE;
+    case actionTypes.CURRENT_ITEM:
       return {
         ...state,
-        loading: false,
+        current: {
+          result: payload,
+        },
       };
-    case actionTypes.LOADING_LIST:
+    case actionTypes.REQUEST_LOADING:
       return {
         ...state,
-        loading: true,
+        [keyState]: {
+          ...state[keyState],
+          isLoading: true,
+        },
       };
-    case actionTypes.CREATE_ITEM:
+    case actionTypes.REQUEST_FAILED:
       return {
         ...state,
-        current: { item: action.payload, loading: false },
+        [keyState]: {
+          ...state[keyState],
+          isLoading: false,
+          isSuccess: false,
+        },
       };
-    case actionTypes.UPDATE_ITEM:
+    case actionTypes.REQUEST_SUCCESS:
       return {
         ...state,
-        current: { item: action.payload, loading: false },
+        [keyState]: {
+          result: payload,
+          isLoading: false,
+          isSuccess: true,
+        },
       };
-    case actionTypes.DELETE_ITEM:
+    case actionTypes.CURRENT_ACTION:
       return {
         ...state,
-        current: { item: null, loading: false },
+        [keyState]: {
+          ...state[keyState],
+          current: payload,
+        },
       };
-    case actionTypes.LIST_ITEMS:
+    case actionTypes.RESET_ACTION:
       return {
         ...state,
-        list: action.payload.result || [...state.list],
-        loading: false,
-        pagination: {
-          ...state.pagination,
-          current: parseInt(action.payload.pagination.page) || [
-            ...state.pagination["current"],
-          ],
-          pageSize: action.payload.pagination.pageSize || 10,
-          total: action.payload.pagination.count || 10,
+        [keyState]: {
+          ...INITIAL_STATE[keyState],
         },
       };
     default:

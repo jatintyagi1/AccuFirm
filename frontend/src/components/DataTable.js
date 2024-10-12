@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   Table,
   Modal,
@@ -13,7 +13,8 @@ import {
 } from "antd";
 
 import FormPatient from "./FormPatient";
-import { request } from "../request";
+
+const { Title } = Typography;
 
 export default function DataTable({ target, columns }) {
   const [state, setState] = useState({
@@ -28,69 +29,57 @@ export default function DataTable({ target, columns }) {
   });
 
   const fetchData = (state) => {
-    const { pagination } = state;
-    setState({ loading: true });
-    const ajaxCall = request.list(target, { page: pagination.current });
-    ajaxCall.then(function (response) {
-      if (!response || response.success === false) {
-        setState({
-          loading: false,
-          data: [],
-          pagination: { ...state.pagination },
-        });
-        return;
-      }
-
-      setState({
-        loading: false,
-        data: response.result,
-        pagination: {
-          ...state.pagination,
-          current: parseInt(response.pagination.page),
-          total: response.pagination.count,
-        },
-      });
-    });
+    // Fetching logic...
   };
 
-  useEffect(() => {
-    fetchData(state);
-  }, []);
-
-  const handleTableChange = (pagination) => {
-    fetchData({ pagination });
-  };
-
-  const { data, pagination, loading } = state;
   const [isModalVisible, setIsModalVisible] = useState(false);
 
-  const showModal = () => setIsModalVisible(true);
-  const handleOk = () => setIsModalVisible(false);
-  const handleCancel = () => setIsModalVisible(false);
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleOk = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
 
   return (
     <>
-      <div style={{ padding: "20px 0px" }}>
-        <Typography.Title level={2}>Title</Typography.Title>
-        <Typography.Text type="secondary">This is a subtitle</Typography.Text>
-        <Tag color="blue">Running</Tag>
-        <div style={{ marginTop: 16 }}>
+      <Row
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          padding: "20px 0",
+        }}
+      >
+        <Col>
+          <Title level={4}>Title</Title>
+          <Tag color="blue">Running</Tag>
+          <p>This is a subtitle</p>
+        </Col>
+        <Col>
           <Button key="2">Refresh</Button>
           <Button key="1" type="primary" onClick={showModal}>
             Add new Customer
           </Button>
-        </div>
-        <Row style={{ marginTop: 24 }}>
-          <Statistic title="Status" value="Pending" />
-          <Statistic
-            title="Price"
-            prefix="$"
-            value={568.08}
-            style={{ margin: "0 32px" }}
-          />
-          <Statistic title="Balance" prefix="$" value={3345.08} />
-        </Row>
-      </div>
+        </Col>
+      </Row>
+      <Row>
+        <Statistic title="Status" value="Pending" />
+        <Statistic
+          title="Price"
+          prefix="$"
+          value={568.08}
+          style={{
+            margin: "0 32px",
+          }}
+        />
+        <Statistic title="Balance" prefix="$" value={3345.08} />
+      </Row>
 
       <Modal
         title="Add new Patient"
@@ -101,14 +90,13 @@ export default function DataTable({ target, columns }) {
       >
         <FormPatient />
       </Modal>
-
       <Table
         columns={columns}
         rowKey={(record) => record._id}
-        dataSource={data}
-        pagination={pagination}
-        loading={loading}
-        onChange={handleTableChange}
+        dataSource={state.data}
+        pagination={state.pagination}
+        loading={state.loading}
+        onChange={(pagination) => fetchData({ pagination })}
       />
     </>
   );

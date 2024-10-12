@@ -108,8 +108,7 @@ const LoginPage = () => {
         </Row>
 
         <Footer style={{ textAlign: "center" }}>
-          Open Source CRM based on AntD & React ©2020 Created by Salah Eddine
-          Lalami
+          Open Source AccuFirm based on AntD & React ©2024 Created by Jatin Tyagi
         </Footer>
       </Layout>
     </>

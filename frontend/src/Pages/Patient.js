@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import DashboardLayout from "../layout/DashboardLayout";
+import DashboardLayout from "../layout/MainDashboard";
 import { Layout, Breadcrumb } from "antd";
 import { DatePicker, TimePicker, Calendar } from "../components/antd";
 import DataTable from "../components/DataTable";

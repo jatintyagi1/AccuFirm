@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, Form, Input } from "antd";
-import { addNewCustomer } from "../redux/customer/action";
+import { addNewCustomer } from "@/redux/customer/actions";
 import { useDispatch } from "react-redux";
 
 export default function FormCustomer({ entity, closeModel }) {

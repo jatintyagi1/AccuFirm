@@ -1,125 +1,155 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import {
-    Dropdown,
-    Menu,
-    Button,
-    Row,
-    Statistic,
-    Table,
-    Tag,
-    Typography
+  Dropdown,
+  Menu,
+  Button,
+  PageHeader,
+  Row,
+  Statistic,
+  Table,
+  Tag,
+  Modal,
 } from "antd";
 import {
-    EllipsisOutlined,
-    EyeOutlined,
-    EditOutlined,
-    DeleteOutlined,
+  EllipsisOutlined,
+  EyeOutlined,
+  EditOutlined,
+  DeleteOutlined,
 } from "@ant-design/icons";
 import { useSelector, useDispatch } from "react-redux";
-import Modal from "antd/lib/modal/Modal";
-import FormCustomer from "./formCustomer";
-import { loadCustomers } from "../redux/customer/action";
+import FormCustomer from "./FormCustomer";
+import { listAction } from "@/redux/crud/actions";
+import { selectListItems } from "@/redux/crud/selectors";
+const dropDownRowMenu = (currentRow) => {
+  function Show() {
+    console.log(currentRow._id);
+  }
+  function Edit() {
+    console.log(currentRow._id);
+  }
+  function Delete() {
+    console.log(currentRow._id);
+  }
+
+  return (
+    <Menu style={{ width: 130 }}>
+      <Menu.Item icon={<EyeOutlined />} onClick={Show}>
+        Show
+      </Menu.Item>
+      <Menu.Item icon={<EditOutlined />} onClick={Edit}>
+        Edit
+      </Menu.Item>
+      <Menu.Item icon={<DeleteOutlined />} onClick={Delete}>
+        Delete
+      </Menu.Item>
+    </Menu>
+  );
+};
 
 export default function CustomerTable({ entity, columns }) {
-    const dropDownRowMenu = (currentRow) => {
-        const Show = () => console.log(currentRow._id);
-        const Edit = () => console.log(currentRow._id);
-        const Delete = () => console.log(currentRow._id);
+  columns = [
+    ...columns,
+    {
+      title: "",
+      render: (row) => (
+        <Dropdown overlay={dropDownRowMenu(row)} trigger={["click"]}>
+          <EllipsisOutlined style={{ cursor: "pointer", fontSize: "24px" }} />
+        </Dropdown>
+      ),
+    },
+  ];
+  const dispatch = useDispatch();
 
-        return (
-            <Menu style={{ width: 130 }}>
-                <Menu.Item icon={<EyeOutlined />} onClick={Show}>
-                    Show
-                </Menu.Item>
-                <Menu.Item icon={<EditOutlined />} onClick={Edit}>
-                    Edit
-                </Menu.Item>
-                <Menu.Item icon={<DeleteOutlined />} onClick={Delete}>
-                    Delete
-                </Menu.Item>
-            </Menu>
-        );
-    };
+  let {
+    result: listResult,
+    isLoading: listIsLoading,
+    isSuccess: listIsSuccess,
+  } = useSelector(selectListItems);
+  const { pagination } = listResult;
 
-    columns = [
-        ...columns,
-        {
-            title: "",
-            render: (row) => (
-                <Dropdown overlay={dropDownRowMenu(row)} trigger={["click"]}>
-                    <EllipsisOutlined style={{ cursor: "pointer", fontSize: "24px" }} />
-                </Dropdown>
-            ),
-        },
-    ];
+  const handelDataTableLoad = useCallback((pagination) => {
+    dispatch(listAction(entity, pagination.current));
+  }, []);
+  // const handelDataTableLoad = (listResult) => {
 
-    const dispatch = useDispatch();
-    const customers = useSelector((state) => state.customers);
+  // };
+  useEffect(() => {
+    handelDataTableLoad(pagination);
+  }, []);
+  // const handelDataTableLoad = useCallback(() => {
+  //   handelDataTableLoad(listResult);
+  // }, []);
+  // const handleTableChange = (pagination) => {
+  //   handelDataTableLoad({ pagination });
+  // };
 
-    const handelDataTableLoad = (customers) => {
-        const { pagination } = customers;
-        dispatch(loadCustomers(entity, pagination.current));
-    };
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
-    useEffect(() => {
-        handelDataTableLoad(customers);
-    }, []);
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
 
-    const handleTableChange = (pagination) => {
-        handelDataTableLoad({ pagination });
-    };
+  const handleOk = () => {
+    setIsModalVisible(false);
+  };
 
-    const [isModalVisible, setIsModalVisible] = useState(false);
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+  return (
+    <>
+      <PageHeader
+        onBack={() => window.history.back()}
+        title="Customer Page"
+        ghost={false}
+        tags={<Tag color="blue">Running</Tag>}
+        subTitle="This is customer page"
+        extra={[
+          <Button key="2">Refresh</Button>,
+          <Button key="1" type="primary" onClick={showModal}>
+            Add new Customer
+          </Button>,
+        ]}
+        style={{
+          padding: "20px 0px",
+        }}
+      >
+        <Row>
+          <Statistic title="Status" value="Pending" />
+          <Statistic
+            title="Price"
+            prefix="$"
+            value={568.08}
+            style={{
+              margin: "0 32px",
+            }}
+          />
+          <Statistic title="Balance" prefix="$" value={3345.08} />
+        </Row>
+      </PageHeader>
+      <Modal
+        title="Add new Patient"
+        visible={isModalVisible}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        footer={null}
+      >
+        <FormCustomer
+          entity={entity}
+          closeModel={() => {
+            setIsModalVisible(false);
+          }}
+        />
+      </Modal>
 
-    const showModal = () => setIsModalVisible(true);
-    const handleOk = () => setIsModalVisible(false);
-    const handleCancel = () => setIsModalVisible(false);
-
-    return (
-        <>
-            <div style={{ padding: "20px 0px" }}>
-                <Typography.Title level={2}>Customer Page</Typography.Title>
-                <Typography.Text type="secondary">This is customer page</Typography.Text>
-                <Tag color="blue">Running</Tag>
-                <div style={{ marginTop: 16 }}>
-                    <Button key="2">Refresh</Button>
-                    <Button key="1" type="primary" onClick={showModal}>
-                        Add new Customer
-                    </Button>
-                </div>
-                <Row style={{ marginTop: 24 }}>
-                    <Statistic title="Status" value="Pending" />
-                    <Statistic
-                        title="Price"
-                        prefix="$"
-                        value={568.08}
-                        style={{ margin: "0 32px" }}
-                    />
-                    <Statistic title="Balance" prefix="$" value={3345.08} />
-                </Row>
-            </div>
-
-            <Modal
-                title="Add new Patient"
-                visible={isModalVisible}
-                onOk={handleOk}
-                onCancel={handleCancel}
-                footer={null}
-            >
-                <FormCustomer
-                    entity={entity}
-                    closeModel={() => setIsModalVisible(false)}
-                />
-            </Modal>
-
-            <Table
-                columns={columns}
-                rowKey={(record) => record._id}
-                dataSource={customers.list}
-                pagination={customers.pagination}
-                loading={customers.loading}
-                onChange={handleTableChange}
-            />
-        </>
-    );
+      <Table
+        columns={columns}
+        rowKey={(item) => item._id}
+        dataSource={listResult.items}
+        pagination={listResult.pagination}
+        loading={listIsLoading}
+        onChange={handelDataTableLoad}
+      />
+    </>
+  );
 }
