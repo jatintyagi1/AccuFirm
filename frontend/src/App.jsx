@@ -1,12 +1,13 @@
-import './App.css'
+import './styles/app.css'
+import RegisterPage from './pages/Register';
 import Navigation from './apps/Navigation/NavigationContainer'
-import RegisterPage from './pages/Register'
 
 function App() {
 
   return (
     <>
-      <RegisterPage />
+    <Navigation />
+
     </>
   )
 }
