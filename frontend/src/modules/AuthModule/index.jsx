@@ -17,16 +17,8 @@ const AuthModule = ({ authContent, AUTH_TITLE, isForRegistre = false }) => {
                 }}
             >
                 <Col xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 0 }} span={0}>
-                    <img 
-                      src=''
-                      alt='logo'
-                      style={{
-                        margin: '0px auto 20px',
-                        display: 'block',
-                      }}
-                      height={63}
-                      width={220}
-                    />
+                    <h1 style={{ textAlign: 'center', color: '#000000' }}>AccuFirm</h1>
+
                     <div className='space10' />
                 </Col>
                 <Title level={1}>{AUTH_TITLE}</Title>

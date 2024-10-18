@@ -15,7 +15,7 @@ export default function SideContent() {
             className="sideContent"
         >
             <div style={{ width: '100%' }}>
-                <img src='' alt='' style={{ margin: '0 auto 40px', display: 'block' }} height={63} width={220} />
+                <h1 style={{ textAlign: 'center', color: '#000000'}}>AccuFirm</h1>
                 <div className='space40'></div>
 
                 <Title level={3}>Manage your Company with :</Title>
