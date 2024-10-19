@@ -11,7 +11,6 @@ import { selectAuth } from '../redux/auth/selectors';
 
 const RegisterPage = () => {
 
-
     const { isLoading, isSuccess } = useSelector(selectAuth);
 
     const dispatch = useDispatch();
