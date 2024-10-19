@@ -14,10 +14,7 @@ if (major < 20) {
 const databaseUri = process.env.MONGODB_URI; // Updated variable name
 console.log('Database URI:', databaseUri); // For debugging
 
-mongoose.connect(databaseUri, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
+mongoose.connect(databaseUri)
   .then(() => {
     console.log('MongoDB connected successfully');
   })
@@ -46,7 +43,7 @@ app.get('/health', (req, res) => {
 });
 
 // Start the server
-app.set('port', process.env.PORT || 8888);
+app.set('port', process.env.PORT || 5000);
 const server = app.listen(app.get('port'), () => {
   console.log(`🚀 Express running → On PORT: ${server.address().port}`);
 });
