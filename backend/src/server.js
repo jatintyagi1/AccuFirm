@@ -1,6 +1,7 @@
-const express = require("express");
-const cors = require("cors");
+require('module-alias/register'); // Enable module aliasing
 const mongoose = require("mongoose");
+const { globSync } = require('glob'); // Glob for matching file paths
+const path = require('path');
 require("dotenv").config();  // Load environment variables from .env
 
 // Ensure Node.js version is 20 or higher
@@ -10,18 +11,7 @@ if (major < 20) {
   process.exit();
 }
 
-const app = express();
-
-// Middleware
-app.use(cors({
-  origin: 'https://accufirm.vercel.app', // Allow only specific origin
-}));
-app.use(express.json()); // Parse JSON bodies
-
-// Load additional environment variables
-require('dotenv').config({ path: '.env.local' });
-
-const databaseUri = process.env.DATABASE || 'your_default_database_uri_here';
+const databaseUri = process.env.DATABASE;
 mongoose.connect(databaseUri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -40,16 +30,21 @@ mongoose.connection.on('error', (error) => {
   console.error(`🚫 Error: ${error.message}`);
 });
 
+// Initialize app
+const app = require('./app');
+
 // Routes
 app.get("/", (req, res) => {
   res.send("AccuFirm API is running! An Accounting App.");
 });
 
-// Start the server
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`Server is running on port -> ${PORT}`);
+// Health check endpoint
+app.get('/health', (req, res) => {
+  res.status(200).send('OK');
 });
 
-// Export the app for potential testing or further integration
-module.exports = app;
+// Start the server
+app.set('port', process.env.PORT || 8888);
+const server = app.listen(app.get('port'), () => {
+  console.log(`🚀 Express running → On PORT: ${server.address().port}`);
+});

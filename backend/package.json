@@ -1,9 +1,14 @@
 {
   "name": "accufirm-backend",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js --ignore public/",
+    "production": "NODE_ENV=production node src/server.js",
+    "setup": "node src/setup/setup.js",
+    "upgrade": "node src/setup/upgrade.js",
+    "reset": "node src/setup/reset.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -12,9 +17,26 @@
   "description": "",
   "dependencies": {
     "accufirm-backend": "file:",
+    "bcryptjs": "^2.4.3",
+    "compression": "^1.7.4",
+    "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
+    "currency.js": "^2.0.4",
     "dotenv": "^16.4.5",
-    "express": "^4.21.0",
-    "mongoose": "^8.7.0"
+    "express": "^4.21.1",
+    "express-fileupload": "^1.5.1",
+    "glob": "^11.0.0",
+    "joi": "^17.13.3",
+    "jsonwebtoken": "^9.0.2",
+    "module-alias": "^2.2.3",
+    "mongoose": "^8.7.2",
+    "resend": "^4.0.0",
+    "shortid": "^2.2.16"
+  },
+  "_moduleAliases": {
+    "@": "src"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.7"
   }
 }
