@@ -39,3 +39,25 @@ PUBLIC_SERVER_FILE="http://localhost:5000/"
 Replace "your-mongodb-uri" with the actual URI of your MongoDB database.
 
 #### Step 5: Install backend Dependency
+
+In your terminal, navigate to the /backend directory
+
+```bash
+cd backend
+```
+
+Run Following command to install dependencies
+
+```bash
+npm install
+```
+This command will install all the required packages specified in the package.json file.
+
+### Step 7: Run Backend Server
+
+```bash
+nodemon src/server.js
+```
+
+
+#### Step 8: 
