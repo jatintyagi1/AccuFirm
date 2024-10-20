@@ -24,21 +24,18 @@ cd AccuFirm
   This file will store environment variables for the project to run.
 
 #### Step 4: Update Mongodb URI
- 
 
-
-```bash
-cd frontend
-```
+in .env file write 
 
 ```bash
-npm install
+MONGODB_URI="your-mongodb-uri"
+PORT=5000
+JWT_SECRET= "your_private_jwt_secret_key"
+NODE_ENV = "production"
+OPENSSL_CONF='/dev/null'
+PUBLIC_SERVER_FILE="http://localhost:5000/"
 ```
 
-This command will install all the required packages specified in the package.json file
+Replace "your-mongodb-uri" with the actual URI of your MongoDB database.
 
-#### Step 3: Start the Frontend Server
-
-```bash
-npm start
-```
+#### Step 5: Install backend Dependency
