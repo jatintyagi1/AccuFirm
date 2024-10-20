@@ -58,6 +58,3 @@ This command will install all the required packages specified in the package.jso
 ```bash
 nodemon src/server.js
 ```
-
-
-#### Step 8: 
