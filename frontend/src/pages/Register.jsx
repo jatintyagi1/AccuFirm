@@ -7,11 +7,11 @@ import RegisterForm from '../forms/RegisterForm'
 import AuthModule from '../modules/AuthModule';
 
 import { register } from '../redux/auth/action';
-import { selectAuth } from '../redux/auth/selectors';
+//import { selectAuth } from '../redux/auth/selectors';
 
 const RegisterPage = () => {
 
-    const { isLoading, isSuccess } = useSelector(selectAuth);
+    //const { isLoading, isSuccess } = useSelector(selectAuth);
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -24,7 +24,7 @@ const RegisterPage = () => {
 
     const FormContainer = () => {
         return (
-            <Loading isLoading={isLoading}>
+           // <Loading isLoading={isLoading}>
                 <Form
                     layout='vertical'
                     name='normal_login'
@@ -44,7 +44,7 @@ const RegisterPage = () => {
                         Register
                     </Button>
                 </Form>
-            </Loading>
+           // </Loading>
         )
     }
     return <AuthModule authContent={<FormContainer />} AUTH_TITLE="Sign Up" />
