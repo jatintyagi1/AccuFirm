@@ -32,13 +32,9 @@ mongoose.connection.on('error', (error) => {
 // Initialize app
 const app = require('./app');
 
-// Routes
-app.get("/", (req, res) => {
-  res.send("AccuFirm API is running! An Accounting App.");
-});
 
 // Health check endpoint
-app.get('/health', (req, res) => {
+app.get('/', (req, res) => {
   res.status(200).send('OK');
 });
 
