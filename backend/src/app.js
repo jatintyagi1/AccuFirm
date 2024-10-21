@@ -2,12 +2,12 @@ const express = require('express');
 const cors = require('cors');
 const compression = require('compression');
 const cookieParser = require('cookie-parser');
-const fileUpload = require('express-fileupload');
+// const fileUpload = require('express-fileupload');
 
 // Importing our Routes
 const coreAuthRouter = require('./routes/coreRoutes/coreAuth');
 //const coreApiRouter = require('./routes/coreRoutes/coreApi');
-//const adminAuth = require('./controller/coreController/adminAuth');
+const adminAuth = require('./controller/coreController/adminAuth');
 
 const errorHandler = require('./handler/errorHandler');
 
