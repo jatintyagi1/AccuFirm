@@ -12,7 +12,7 @@ if (major < 20) {
 }
 
 const databaseUri = process.env.DATABASE; // Updated variable name
-console.log('Database URI:', databaseUri); // For debugging
+//console.log('Database URI:', databaseUri); // For debugging
 
 mongoose.connect(databaseUri)
   .then(() => {
@@ -29,16 +29,16 @@ mongoose.connection.on('error', (error) => {
   console.error(`🚫 Error: ${error.message}`);
 });
 
+// const modelsFile = globSync('./src/models/**/*.js');
+
+// for(const filePath of modelsFiles) {
+//   require(path.resolve(filePath));
+// }
+
+
+
 // Initialize app
 const app = require('./app');
-
-
-// Health check endpoint
-app.get('/', (req, res) => {
-  res.status(200).send('OK');
-});
-
-
 
 // Start the server
 app.set('port', process.env.PORT || 5000);
