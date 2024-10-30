@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Button, Drawer, Layout, Menu } from 'antd';
+import { Link } from 'react-router-dom';
 
 import {
     SettingOutlined,
@@ -31,32 +32,86 @@ export default function Navigation() {
 
 // Sidebar Function
 function Sidebar() {
+
     const items = [
-        { key: 'dashboard', icon: <DashboardOutlined />, label: 'dashboard' },
-        { key: 'customer', icon: <CustomerServiceOutlined />, label: 'customers' },
-        { key: 'people', icon: <UserOutlined />, label: 'peoples' },
-        { key: 'Companies', icon: <ShopOutlined />, label: 'companies' },
-        { key: 'Lead', icon: <FilterOutlined />, label: 'leads' },
-        { key: 'Quote For Leads', icon: <FileOutlined />, label: 'offers' },
-        { key: 'invoice', icon: <ContainerOutlined />, label: 'invoices' },
-        { key: 'quote', icon: <FileSyncOutlined />, label: 'proforma invoices' },
-        { key: 'payment', icon: <CreditCardOutlined />, label: 'payments' },
-        { key: 'product', icon: <TagOutlined />, label: 'products' },
-        { key: 'categoryproduct', icon: <TagsOutlined />, label: 'product_category' },
-        { key: 'expenses', icon: <WalletOutlined />, label: 'expense' },
-        { key: 'expensesCategory', icon: <ReconciliationOutlined />, label: 'expenses_category' },
+        {
+            key: 'dashboard',
+            icon: <DashboardOutlined />,
+            label: <Link to='/'>dashboard</Link>
+        },
+        {
+            key: 'customer',
+            icon: <CustomerServiceOutlined />,
+            label: <Link to='/customers'>customers</Link>
+        },
+        {
+            key: 'people',
+            icon: <UserOutlined />,
+            label: <Link to='/peoples'>peoples</Link>
+        },
+        {
+            key: 'companies',
+            icon: <ShopOutlined />,
+            label: <Link to='/companies'>companies</Link>
+        },
+        {
+            key: 'lead',
+            icon: <FilterOutlined />,
+            label: <Link to='/leads'>leads</Link>
+        },
+        {
+            key: 'quoteForLeads',
+            icon: <FileOutlined />,
+            label: <Link to='/offers'>offers</Link>
+        },
+        {
+            key: 'invoice',
+            icon: <ContainerOutlined />,
+            label: <Link to='/invoices'>invoices</Link>
+        },
+        {
+            key: 'quote',
+            icon: <FileSyncOutlined />,
+            label: <Link to='/proforma-invoices'>proforma invoices</Link>
+        },
+        {
+            key: 'payment',
+            icon: <CreditCardOutlined />,
+            label: <Link to='/payments'>payments</Link>
+        },
+        {
+            key: 'product',
+            icon: <TagOutlined />,
+            label: <Link to='/products'>products</Link>
+        },
+        {
+            key: 'categoryProduct',
+            icon: <TagsOutlined />,
+            label: <Link to='/product-category'>product_category</Link>
+        },
+        {
+            key: 'expenses',
+            icon: <WalletOutlined />,
+            label: <Link to='/expense'>expense</Link>
+        },
+        {
+            key: 'expensesCategory',
+            icon: <ReconciliationOutlined />,
+            label: <Link to='/expenses-category'>expenses_category</Link>
+        },
         {
             label: 'Settings',
             key: 'settings',
             icon: <SettingOutlined />,
             children: [
-                { key: 'generalSettings', label: 'settings' },
-                { key: 'paymentMode', label: 'payment_modes' },
-                { key: 'taxes', label: 'taxes' },
-                { key: 'about', label: 'about' },
+                { key: 'generalSettings', label: <Link to='/settings'>settings</Link> },
+                { key: 'paymentMode', label: <Link to='/payment-modes'>payment_modes</Link> },
+                { key: 'taxes', label: <Link to='/taxes'>taxes</Link> },
+                { key: 'about', label: <Link to='/about'>about</Link> },
             ],
         },
     ];
+
 
     return (
         <Sider
