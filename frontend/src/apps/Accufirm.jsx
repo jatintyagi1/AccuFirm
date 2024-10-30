@@ -1,9 +1,10 @@
-import RegisterPage from '../pages/Register';
+import ErpApp from "./ERPApp"
 
-export default function App() {
+export default function AccuFirm() {
   return (
     <>
-      <RegisterPage />
+    <ErpApp />
+      
     </>
   )
 }
