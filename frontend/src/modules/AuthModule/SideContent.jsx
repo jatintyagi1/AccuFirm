@@ -15,20 +15,16 @@ export default function SideContent() {
             className="sideContent"
         >
             <div style={{ width: '100%' }}>
-                <h1 style={{ textAlign: 'center', color: '#000000'}}>AccuFirm</h1>
+                <h1 style={{ textAlign: 'center', color: '#000000' }}>AccuFirm</h1>
                 <div className='space40'></div>
-
                 <Title level={3}>Manage your Company with :</Title>
-
                 <div className='space20'></div>
                 <ul className='list-checked' style={{ paddingRight: 0 }}>
                     <li>
                         <Space direction='vertical'>
                             <Text strong>All-in-one-Tool</Text>
-
                             <Text>Run and scale up Your business</Text>
                         </Space>
-
                         <li>
                             <Space direction='vertical'>
                                 <Text strong>Easily add and manage your services</Text>
