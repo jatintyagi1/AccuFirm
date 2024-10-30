@@ -1,3 +1,4 @@
+import { Link, useNavigate } from 'react-router-dom';
 import { Avatar, Dropdown, Layout } from 'antd';
 import { LogoutOutlined, ToolOutlined, UserOutlined } from '@ant-design/icons';
 
@@ -8,8 +9,9 @@ const { Header } = Layout;
 export default function HeaderContent() {
 
     const ProfileDropdown = () => {
+        const navigate = useNavigate();
         return (
-            <div className='profileDropdown'>
+            <div className='profileDropdown' onClick={() => navigate('profile')}>
                 <Avatar
                     size='large'
                     className='last'
@@ -19,7 +21,7 @@ export default function HeaderContent() {
                         boxShadow: 'rgba(150, 190, 238, 0.35) 0px 0px 6px 1px',
                     }}
                 >
-
+                    JATIN TYAGI
                 </Avatar>
                 <div className='profileDropdownInfo'>
                     <p>
