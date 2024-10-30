@@ -11,7 +11,7 @@ import {
     TagsOutlined,
     UserOutlined,
     CreditCardOutlined,
-    // MenuOutlined,
+    MenuOutlined,
     FileOutlined,
     ShopOutlined,
     FilterOutlined,
@@ -19,12 +19,14 @@ import {
     ReconciliationOutlined,
 } from '@ant-design/icons';
 
+import useResponsive from '../../hooks/useResponsive';
 
 const { Sider } = Layout;
 
 // Main Navigation
 export default function Navigation() {
-    return <Sidebar />;
+    const { isMobile } = useResponsive();
+    return isMobile ? <MobileSidebar /> : <Sidebar collapsible={false} />;
 }
 
 // Sidebar Function
@@ -70,7 +72,7 @@ function Sidebar() {
             }}
         >
             <div className='logo' style={{ cursor: 'pointer' }}>
-                <h1 style={{ marginLeft: '-5px', height: '40px'}}>AccuFirm</h1>
+                <h1 style={{ marginLeft: '-5px', height: '40px' }}>AccuFirm</h1>
             </div>
             <Menu
                 items={items}
@@ -85,3 +87,43 @@ function Sidebar() {
         </Sider>
     );
 };
+
+
+function MobileSidebar() {
+    const [visible, setVisible] = useState(false);
+
+    const showDrawer = () => {
+        setVisible(true);
+    }
+
+    const onClose = () => {
+        setVisible(false);
+    }
+
+    return (
+        <>
+            <Button
+                type='text'
+                size='large'
+                onClick={showDrawer}
+                className="mobile-sidebar-btn"
+                style={{ ['marginLeft']: 25 }}
+            >
+                <MenuOutlined style={{ fontSize: 18 }} />
+            </Button>
+            <Drawer
+                width={250}
+                contentWrapperStyle={{
+                    boxShadow: 'none',
+                }}
+                style={{ backgroundColor: 'rgba(255, 255, 255, 0)' }}
+                placement={'left'}
+                closable={false}
+                onClose={onClose}
+                open={visible}
+            >
+                <Sidebar collapsible={false} isMobile={true} />
+            </Drawer>
+        </>
+    )
+}
