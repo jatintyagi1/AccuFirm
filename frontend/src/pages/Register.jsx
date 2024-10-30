@@ -7,7 +7,7 @@ import RegisterForm from '../forms/RegisterForm'
 import AuthModule from '../modules/AuthModule';
 
 import { register } from '../redux/auth/action';
-//import { selectAuth } from '../redux/auth/selectors';
+import { selectAuth } from '../redux/auth/selectors';
 
 const RegisterPage = () => {
 

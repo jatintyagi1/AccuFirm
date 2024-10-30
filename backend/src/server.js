@@ -11,7 +11,7 @@ if (major < 20) {
   process.exit();
 }
 
-const databaseUri = process.env.MONGODB_URI; // Updated variable name
+const databaseUri = process.env.DATABASE; // Updated variable name
 console.log('Database URI:', databaseUri); // For debugging
 
 mongoose.connect(databaseUri)
