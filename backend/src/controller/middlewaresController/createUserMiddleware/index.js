@@ -12,6 +12,8 @@ const createUserController = (userModel) => {
     userController.updatePassword = (req, res) => updatePassword(userModel, req, res);
     userController.updateProfilePassword = (req, res) => updateProfilePassword(userModel, req, res);
 
+    userController.read = (req, res) => read(userModel, req, res);
+
     return userController;
 };
 
