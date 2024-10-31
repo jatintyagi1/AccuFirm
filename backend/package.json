@@ -1,7 +1,6 @@
 {
   "name": "accufirm-backend",
   "version": "1.0.0",
-  "main": "server.js",
   "scripts": {
     "start": "node src/server.js",
     "dev": "nodemon src/server.js --ignore public/",
@@ -12,7 +11,6 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "Jatin Tyagi",
   "license": "ISC",
   "description": "",
   "dependencies": {
@@ -38,5 +36,7 @@
   },
   "devDependencies": {
     "nodemon": "^3.1.7"
-  }
+  },
+  "main": "server.js",
+  "author": "Jatin Tyagi"
 }

@@ -6,8 +6,8 @@ const cookieParser = require('cookie-parser');
 
 // Importing our Routes
 const coreAuthRouter = require('./routes/coreRoutes/coreAuth');
-//const coreApiRouter = require('./routes/coreRoutes/coreApi');
-const adminAuth = require('./controller/coreController/adminAuth');
+const coreApiRouter = require('./routes/coreRoutes/coreApi');
+//const adminAuth = require('./controller/coreController/adminAuth');
 
 const errorHandler = require('./handler/errorHandler');
 
