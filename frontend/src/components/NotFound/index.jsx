@@ -11,6 +11,9 @@ export default function NotFound({ entity = '' }) {
             extra={
                 <Button
                     type="primary"
+                    onClick={() => {
+                        navigate('/');
+                    }}
                 >
                     Back
                 </Button>
