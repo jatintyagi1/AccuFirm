@@ -191,6 +191,7 @@ function MobileSidebar() {
       >
         <Sidebar collapsible={false} isMobile={true} />
       </Drawer>
+      
     </>
   );
 }
