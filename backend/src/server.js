@@ -29,6 +29,10 @@ mongoose.connection.on('error', (error) => {
   console.error(`🚫 Error: ${error.message}`);
 });
 
+const modelsFiles = globSync('./src/models/**/*.js');
+for(const filePath of modelsFiles) {
+  require(path.resolve(filePath));
+}
 
 // Initialize app
 const app = require('./app');
