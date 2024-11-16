@@ -2,24 +2,24 @@ import { useMemo, useReducer, createContext, useContext } from 'react';
 import { initialState, contextReducer } from './reducer';
 import contextActions from './actions';
 
-const appContext = createContext();
+const AppContext = createContext();
 
 function AppContextProvider({ children }) {
-    const [state, dispatch] = useReducer(contextReducer, initialState);
-    const value = useMemo(() => [state, dispatch], [state]);
-    return <appContext.Provider value={value}>{children}</appContext.Provider>
+  const [state, dispatch] = useReducer(contextReducer, initialState);
+  const value = useMemo(() => [state, dispatch], [state]);
+
+  return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 }
 
 function useAppContext() {
-    const context = useContext(appContext);
-    if (context === undefined) {
-        throw new Error('useAppContext must be used within a AppContextProvider');
-    }
-    const [state, dispatch] = context;
-    const appContextAction = contextActions(dispatch);
-    // const appContextSelector = contextSelectors(state);
-    return { state, appContextAction };
+  const context = useContext(AppContext);
+  if (context === undefined) {
+    throw new Error('useAppContext must be used within a AppContextProvider');
+  }
+  const [state, dispatch] = context;
+  const appContextAction = contextActions(dispatch);
+  // const appContextSelector = contextSelectors(state);
+  return { state, appContextAction };
 }
-
 
 export { AppContextProvider, useAppContext };
